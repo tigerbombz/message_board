@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Message Board</title>
+
+  <style>
+    .show_messages{
+      margin-left: 20px;
+    }
+    .show_comments{
+      margin-left: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>THE DOJO MESSAGE BOARD</h1>
+  <hr>
+
+  <div class="new_message">
+    <form action="/messages" method="post">
+      <h4>Name: <input type="text" name="name" class="name" placeholder="Enter name"></h4>
+      <h4>Message: <textarea rows="5" cols="40" name="message" class="message" placeholder="Enter message here..."></textarea></h4>
+      <input type="submit" value="Post Message">
+      <hr>
+    </form>
+  </div>
+  <div class="show_messages">
+    <h1>Messages</h1>
+    <% for (var m in messages) { %>
+    <h4>Name: <%= messages[m].name %></h4>
+    <h4>Message: <%= messages[m].message%></h4>
+    <div class="show_comments">
+
+      <% for(var c in messages[m].comments) {%>
+     <p>Name: <%= messages[m].comments[c].name %></p>
+     <p>Comment: <%= messages[m].comments[c].comment %></p>
+      <% } %>
+    </div>
+    <div class="make_comment">
+      <form action="/messages/<%= messages[m]._id%>" method="post">
+        <h6>Name: <input type="text" name="name" class="name" placeholder="Enter name"></h6>
+        <h6>Comment: <textarea rows="5" cols="40" name="comment" class="comment" placeholder="Enter comment here..."></textarea></h6>
+        <input type="submit" value="Post Comment">
+      </form>
+    </div>
+    <% } %>
+    <hr>
+  </div>
+
+</body>
+</html>
